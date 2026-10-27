@@ -8,6 +8,10 @@ from datetime import datetime
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsStaffOrReadOnly
+from .serializers import BookingSerializer, MenuSerializer
 
 
 # Create your views here.
@@ -66,3 +70,27 @@ def bookings(request):
     bookings = Booking.objects.all().filter(reservation_date=date)
     booking_json = serializers.serialize('json', bookings)
     return HttpResponse(booking_json, content_type='application/json')
+
+
+class MenuItemsView(generics.ListCreateAPIView):
+    queryset = Menu.objects.all().order_by('id')
+    serializer_class = MenuSerializer
+    permission_classes = [IsStaffOrReadOnly]
+
+
+class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+    permission_classes = [IsStaffOrReadOnly]
+
+
+class BookingViewSet(viewsets.ModelViewSet):
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = Booking.objects.all().order_by('reservation_date', 'reservation_slot')
+        date = self.request.query_params.get('date')
+        if date:
+            queryset = queryset.filter(reservation_date=date)
+        return queryset
