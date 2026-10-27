@@ -1,0 +1,6 @@
+[
+  {"model": "restaurant.menu", "pk": 1, "fields": {"name": "Greek salad", "price": 12, "menu_item_description": "Crispy lettuce, peppers, olives and Chicago-style feta cheese, garnished with crunchy garlic and rosemary croutons."}},
+  {"model": "restaurant.menu", "pk": 2, "fields": {"name": "Bruschetta", "price": 8, "menu_item_description": "Grilled bread smeared with garlic and seasoned with salt and olive oil, topped with fresh tomatoes."}},
+  {"model": "restaurant.menu", "pk": 3, "fields": {"name": "Grilled fish", "price": 20, "menu_item_description": "Fresh fish of the day, grilled and served with lemon, herbs and seasonal vegetables."}},
+  {"model": "restaurant.menu", "pk": 4, "fields": {"name": "Lemon dessert", "price": 7, "menu_item_description": "Our grandmother's recipe: a light lemon cake with a tangy lemon glaze."}}
+]
